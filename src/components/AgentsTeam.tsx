@@ -5,7 +5,7 @@ export default function AgentsTeam() {
     <section id="agents" style={{ padding: '6rem 2rem', maxWidth: '1200px', margin: '0 auto' }}>
       <div style={{ marginBottom: '3rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '0.75rem' }}>
-          <h2 style={{ fontSize: '1.75rem', fontWeight: 600, color: '#e5e7eb' }}>The Team</h2>
+          <h2 style={{ fontSize: '1.75rem', fontWeight: 600, color: '#e5e7eb', display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '0.5rem' }}><span style={{ color: '#c9a962', fontWeight: 400 }}>02.</span> The Team<span style={{ height: '1px', background: '#1e293b', flex: 1, maxWidth: '300px' }} /></h2>
           <span style={{ height: '2px', width: '40px', background: '#c9a962', borderRadius: '1px' }} />
         </div>
         <p style={{ color: '#94a3b8', fontSize: '0.95rem' }}>

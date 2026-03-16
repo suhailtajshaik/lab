@@ -1,13 +1,13 @@
 export default function AboutLab() {
   const stats = [
-    { value: '7', label: 'Active Agents' },
-    { value: '3', label: 'Projects In Progress' },
+    { value: '6', label: 'Active Agents' },
+    { value: '1', label: 'Projects In Progress' },
     { value: '1', label: 'Model Training' },
   ]
 
   const focusItems = [
     { emoji: '🧙', text: 'Yoda — Self-evolving VL-JEPA agent, currently v0.4 with 161M parameters' },
-    { emoji: '🎬', text: 'Hero Video Generator — Programmatic looping backgrounds with Remotion' },
+    
     { emoji: '🧠', text: 'VL-JEPA — Training a vision-language model from research papers' },
   ]
 
@@ -16,7 +16,7 @@ export default function AboutLab() {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'start' }}>
         {/* Left column */}
         <div>
-          <h2 style={{ fontSize: '1.75rem', fontWeight: 600, color: '#e5e7eb', marginBottom: '1.25rem' }}>
+          <h2 style={{ fontSize: '1.75rem', fontWeight: 600, color: '#e5e7eb', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '1rem' }}><span style={{ color: '#c9a962', fontWeight: 400 }}>01.</span>
             What happens here
           </h2>
           <p style={{ color: '#94a3b8', lineHeight: 1.7, marginBottom: '2rem', fontSize: '0.95rem' }}>

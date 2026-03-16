@@ -1,7 +1,11 @@
 services:
-  lab-site:
+  lab:
     build: .
-    container_name: r2d2-lab-site
+    container_name: lab
     restart: unless-stopped
-    ports:
-      - "3002:80"
+    networks:
+      - r2d2-proxy
+
+networks:
+  r2d2-proxy:
+    external: true

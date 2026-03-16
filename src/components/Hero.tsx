@@ -87,7 +87,7 @@ export default function Hero() {
           }}>
             Meet The Team
           </a>
-          <a href="#projects" style={{
+          <a href="https://suhailtaj.cloud" style={{
             border: '1px solid #c9a962',
             color: '#c9a962',
             padding: '0.875rem 1.75rem',
@@ -98,7 +98,7 @@ export default function Hero() {
             background: 'transparent',
             transition: 'background 0.2s',
           }}>
-            Active Projects
+            View Portfolio
           </a>
         </div>
       </div>

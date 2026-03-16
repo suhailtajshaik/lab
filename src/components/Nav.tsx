@@ -2,11 +2,10 @@ import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
 
 const navItems = [
-  { label: 'Home', href: 'https://suhailtaj.cloud' },
-  { label: 'Lab', href: '#', active: true },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Agents', href: '#agents' },
-  { label: 'Contact', href: 'https://suhailtaj.cloud#contact' },
+  { id: 'lab',      label: 'Lab',       href: '#',                          active: true  },
+  { id: 'projects', label: 'Projects',  href: '#projects',                  active: false },
+  { id: 'agents',   label: 'Agents',    href: '#agents',                    active: false },
+  { id: 'portfolio',label: 'Portfolio', href: 'https://suhailtaj.cloud',    active: false, gold: true },
 ]
 
 export default function Nav() {
@@ -32,27 +31,32 @@ export default function Nav() {
         alignItems: 'center',
         justifyContent: 'space-between',
       }}>
-        {/* Logo */}
-        <a href="https://suhailtaj.cloud" style={{ fontSize: '1.25rem', fontWeight: 700, color: '#fff', textDecoration: 'none' }}>
+
+        {/* Logo — identical to portfolio */}
+        <a href="https://suhailtaj.cloud" style={{
+          fontSize: '1.25rem',
+          fontWeight: 700,
+          color: '#fff',
+          textDecoration: 'none',
+        }}>
           S<span style={{ color: '#c9a962' }}>.</span>
         </a>
 
-        {/* Desktop Links */}
-        <div className="desktop-nav" style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+        {/* Desktop Nav */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }} className="desktop-nav">
           {navItems.map(item => (
             <a
-              key={item.label}
+              key={item.id}
               href={item.href}
               style={{
-                color: item.active ? '#c9a962' : '#94a3b8',
+                fontSize: '0.875rem',
+                fontWeight: 500,
+                color: item.active || item.gold ? '#c9a962' : '#94a3b8',
                 textDecoration: 'none',
-                fontSize: '0.9rem',
-                fontWeight: item.active ? 600 : 400,
-                position: 'relative',
                 transition: 'color 0.2s',
+                position: 'relative',
               }}
-              onMouseEnter={e => { if (!item.active) (e.target as HTMLElement).style.color = '#e5e7eb' }}
-              onMouseLeave={e => { if (!item.active) (e.target as HTMLElement).style.color = '#94a3b8' }}
+              className="nav-link"
             >
               {item.label}
               {item.active && (
@@ -70,17 +74,17 @@ export default function Nav() {
           ))}
         </div>
 
-        {/* Mobile Hamburger */}
+        {/* Mobile Menu Button */}
         <button
-          className="mobile-menu-btn"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="mobile-menu-btn"
           style={{
             display: 'none',
-            background: 'none',
+            background: 'transparent',
             border: 'none',
-            color: '#e5e7eb',
+            color: '#94a3b8',
             cursor: 'pointer',
-            padding: '4px',
+            padding: '0.5rem',
           }}
         >
           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -89,7 +93,7 @@ export default function Nav() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="mobile-menu" style={{
+        <div style={{
           position: 'absolute',
           top: '64px',
           left: 0,
@@ -97,21 +101,21 @@ export default function Nav() {
           background: '#0c1222',
           borderBottom: '1px solid #1e293b',
           padding: '1rem 2rem',
-          display: 'none',
-        }}>
+        }} className="mobile-menu">
           {navItems.map(item => (
             <a
-              key={item.label}
+              key={item.id}
               href={item.href}
               onClick={() => setMobileMenuOpen(false)}
               style={{
                 display: 'block',
                 padding: '0.75rem 0',
-                color: item.active ? '#c9a962' : '#94a3b8',
+                fontSize: '1rem',
+                color: item.active || item.gold ? '#c9a962' : '#94a3b8',
                 textDecoration: 'none',
-                fontSize: '0.95rem',
-                fontWeight: item.active ? 600 : 400,
-                borderBottom: '1px solid #1e293b',
+                borderTop: item.gold ? '1px solid #1e293b' : 'none',
+                marginTop: item.gold ? '0.5rem' : '0',
+                paddingTop: item.gold ? '1rem' : '0.75rem',
               }}
             >
               {item.label}
@@ -124,8 +128,8 @@ export default function Nav() {
         @media (max-width: 768px) {
           .desktop-nav { display: none !important; }
           .mobile-menu-btn { display: block !important; }
-          .mobile-menu { display: block !important; }
         }
+        .nav-link:hover { color: #c9a962 !important; }
       `}</style>
     </nav>
   )
