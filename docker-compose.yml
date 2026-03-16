@@ -1,0 +1,7 @@
+services:
+  lab-site:
+    build: .
+    container_name: r2d2-lab-site
+    restart: unless-stopped
+    ports:
+      - "3002:80"
