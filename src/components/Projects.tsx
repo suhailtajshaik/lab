@@ -15,14 +15,24 @@ export default function Projects() {
         gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
         gap: '1.5rem',
       }}>
-        {projects.map(project => (
-          <div key={project.name} style={{
+        {projects.map(project => {
+          const CardTag = project.url ? 'a' : 'div'
+          const cardProps = project.url ? {
+            href: project.url,
+            target: '_self' as const,
+            rel: 'noopener noreferrer',
+          } : {}
+          return (
+          <CardTag key={project.name} {...cardProps} style={{
             background: 'rgba(30, 41, 59, 0.4)',
             border: '1px solid #1e293b',
             borderRadius: '12px',
             padding: '24px',
-            transition: 'border-color 0.2s',
-          }}>
+            transition: 'border-color 0.2s, box-shadow 0.2s',
+            textDecoration: 'none',
+            display: 'block',
+            cursor: project.url ? 'pointer' : 'default',
+          }} className="project-card">
             {/* Status badge */}
             <span style={{
               display: 'inline-block',
@@ -65,9 +75,11 @@ export default function Projects() {
                 </span>
               ))}
             </div>
-          </div>
-        ))}
+          </CardTag>
+          )
+        })}
       </div>
     </section>
   )
 }
+

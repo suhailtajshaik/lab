@@ -14,6 +14,7 @@ export interface Project {
   status: 'active' | 'planned'
   stack: string[]
   description: string
+  url?: string
 }
 
 export const agents: Agent[] = [
@@ -27,7 +28,7 @@ export const agents: Agent[] = [
 
 export const projects: Project[] = [
   { name: 'Yoda — VL-JEPA Learning System', status: 'active' as const, stack: ['Python', 'PyTorch', 'Claude', 'BERT', 'ViT', 'Docker'], description: 'Self-evolving agent that learns Vision-Language JEPA from research papers and autonomously builds its own product embedding model. v0.5 — 161M parameters, trained on Amazon Berkeley Objects dataset for e-commerce product search and inventory counting.' },
-  { name: 'Prompt Studio', status: 'active' as const, stack: ['React', 'Node.js', 'Docker', 'Nginx'], description: 'A personal prompt engineering workspace. Design, test, and iterate on prompts for LLMs with a clean interface. Live at lab.suhailtaj.cloud/prompt-studio/' },
+  { name: 'Prompt Studio', status: 'active' as const, stack: ['React', 'Node.js', 'Docker', 'Nginx'], description: 'A personal prompt engineering workspace. Design, test, and iterate on prompts for LLMs with a clean interface.', url: 'https://lab.suhailtaj.cloud/prompt-studio/' },
 ]
 
 export const statusColors: Record<string, string> = {
