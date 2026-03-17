@@ -1,15 +1,10 @@
+import { labStats, focusItems } from '../data/lab'
+
 export default function AboutLab() {
   const stats = [
-    { value: '6', label: 'Active Agents' },
-    { value: '2', label: 'Live Projects' },
-    { value: '1', label: 'Model Training' },
-  ]
-
-  const focusItems = [
-    { emoji: '📰', text: 'The Headlines Today — AI newspaper publishing daily at 5AM EST via Maxwell' },
-    { emoji: '🧪', text: 'Prompt Studio — Live prompt engineering workspace at lab.suhailtaj.cloud' },
-    { emoji: '🧙', text: 'Yoda — Self-evolving VL-JEPA agent, v0.5 with 161M parameters' },
-    { emoji: '🧠', text: 'VL-JEPA — Training a vision-language model from research papers' },
+    { value: String(labStats.agents),       label: 'Active Agents' },
+    { value: String(labStats.liveProjects), label: 'Live Projects' },
+    { value: String(labStats.modelTraining),label: 'Model Training' },
   ]
 
   return (
@@ -17,7 +12,8 @@ export default function AboutLab() {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'start' }}>
         {/* Left column */}
         <div>
-          <h2 style={{ fontSize: '1.75rem', fontWeight: 600, color: '#e5e7eb', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '1rem' }}><span style={{ color: '#c9a962', fontWeight: 400 }}>01.</span>
+          <h2 style={{ fontSize: '1.75rem', fontWeight: 600, color: '#e5e7eb', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <span style={{ color: '#c9a962', fontWeight: 400 }}>01.</span>
             What happens here
           </h2>
           <p style={{ color: '#94a3b8', lineHeight: 1.7, marginBottom: '2rem', fontSize: '0.95rem' }}>
@@ -54,7 +50,7 @@ export default function AboutLab() {
           </h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {focusItems.map(item => (
-              <div key={item.emoji} style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+              <div key={item.emoji + item.text} style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
                 <span style={{ fontSize: '1.25rem' }}>{item.emoji}</span>
                 <span style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: 1.6 }}>{item.text}</span>
               </div>
