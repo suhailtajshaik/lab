@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Sun, Moon } from 'lucide-react'
 
 const navItems = [
   { id: 'lab',      label: 'Lab',       href: '#',                          active: true  },
@@ -8,7 +8,12 @@ const navItems = [
   { id: 'portfolio',label: 'Portfolio', href: 'https://suhailtaj.cloud',    active: false, gold: true },
 ]
 
-export default function Nav() {
+interface NavProps {
+  theme: 'dark' | 'light'
+  toggleTheme: () => void
+}
+
+export default function Nav({ theme, toggleTheme }: NavProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
@@ -18,9 +23,9 @@ export default function Nav() {
       left: 0,
       right: 0,
       zIndex: 100,
-      background: 'rgba(12, 18, 34, 0.9)',
+      background: 'var(--nav-bg)',
       backdropFilter: 'blur(12px)',
-      borderBottom: '1px solid #1e293b',
+      borderBottom: '1px solid var(--border)',
     }}>
       <div style={{
         maxWidth: '1200px',
@@ -32,14 +37,14 @@ export default function Nav() {
         justifyContent: 'space-between',
       }}>
 
-        {/* Logo — identical to portfolio */}
+        {/* Logo */}
         <a href="https://suhailtaj.cloud" style={{
           fontSize: '1.25rem',
           fontWeight: 700,
-          color: '#fff',
+          color: 'var(--text-primary)',
           textDecoration: 'none',
         }}>
-          S<span style={{ color: '#c9a962' }}>.</span>
+          S<span style={{ color: 'var(--accent)' }}>.</span>
         </a>
 
         {/* Desktop Nav */}
@@ -51,7 +56,7 @@ export default function Nav() {
               style={{
                 fontSize: '0.875rem',
                 fontWeight: 500,
-                color: item.active || item.gold ? '#c9a962' : '#94a3b8',
+                color: item.active || item.gold ? 'var(--accent)' : 'var(--text-secondary)',
                 textDecoration: 'none',
                 transition: 'color 0.2s',
                 position: 'relative',
@@ -66,12 +71,33 @@ export default function Nav() {
                   left: 0,
                   right: 0,
                   height: '2px',
-                  background: '#c9a962',
+                  background: 'var(--accent)',
                   borderRadius: '1px',
                 }} />
               )}
             </a>
           ))}
+
+          {/* Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '34px',
+              height: '34px',
+              border: '1px solid var(--border)',
+              borderRadius: '8px',
+              background: 'transparent',
+              color: 'var(--text-muted)',
+              cursor: 'pointer',
+              transition: 'all 0.2s',
+            }}
+          >
+            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
         </div>
 
         {/* Mobile Menu Button */}
@@ -82,7 +108,7 @@ export default function Nav() {
             display: 'none',
             background: 'transparent',
             border: 'none',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             cursor: 'pointer',
             padding: '0.5rem',
           }}
@@ -98,8 +124,8 @@ export default function Nav() {
           top: '64px',
           left: 0,
           right: 0,
-          background: '#0c1222',
-          borderBottom: '1px solid #1e293b',
+          background: 'var(--bg)',
+          borderBottom: '1px solid var(--border)',
           padding: '1rem 2rem',
         }} className="mobile-menu">
           {navItems.map(item => (
@@ -111,9 +137,9 @@ export default function Nav() {
                 display: 'block',
                 padding: '0.75rem 0',
                 fontSize: '1rem',
-                color: item.active || item.gold ? '#c9a962' : '#94a3b8',
+                color: item.active || item.gold ? 'var(--accent)' : 'var(--text-secondary)',
                 textDecoration: 'none',
-                borderTop: item.gold ? '1px solid #1e293b' : 'none',
+                borderTop: item.gold ? '1px solid var(--border)' : 'none',
                 marginTop: item.gold ? '0.5rem' : '0',
                 paddingTop: item.gold ? '1rem' : '0.75rem',
               }}
@@ -121,6 +147,28 @@ export default function Nav() {
               {item.label}
             </a>
           ))}
+          {/* Mobile Theme Toggle */}
+          <div style={{ borderTop: '1px solid var(--border)', marginTop: '0.5rem', paddingTop: '1rem' }}>
+            <button
+              onClick={toggleTheme}
+              aria-label="Toggle theme"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                background: 'transparent',
+                border: '1px solid var(--border)',
+                borderRadius: '8px',
+                color: 'var(--text-muted)',
+                cursor: 'pointer',
+                padding: '0.5rem 1rem',
+                fontSize: '0.875rem',
+              }}
+            >
+              {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+              {theme === 'dark' ? 'Light mode' : 'Dark mode'}
+            </button>
+          </div>
         </div>
       )}
 
@@ -129,7 +177,7 @@ export default function Nav() {
           .desktop-nav { display: none !important; }
           .mobile-menu-btn { display: block !important; }
         }
-        .nav-link:hover { color: #c9a962 !important; }
+        .nav-link:hover { color: var(--accent) !important; }
       `}</style>
     </nav>
   )

@@ -15,11 +15,11 @@ export default function AboutLab() {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'start' }}>
         {/* Left column */}
         <div>
-          <h2 style={{ fontSize: '1.75rem', fontWeight: 600, color: '#e5e7eb', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <span style={{ color: '#c9a962', fontWeight: 400 }}>01.</span>
+          <h2 style={{ fontSize: '1.75rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <span style={{ color: 'var(--accent)', fontWeight: 400 }}>01.</span>
             What happens here
           </h2>
-          <p style={{ color: '#94a3b8', lineHeight: 1.7, marginBottom: '2rem', fontSize: '0.95rem' }}>
+          <p style={{ color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: '2rem', fontSize: '0.95rem' }}>
             This lab is R&D — where autonomous agents are built, models are trained, and experiments run
             until they either ship or teach something. Every agent here runs in production. Every project
             has a purpose. Nothing is theoretical.
@@ -28,14 +28,14 @@ export default function AboutLab() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
             {stats.map(stat => (
               <div key={stat.label} style={{
-                background: 'rgba(30, 41, 59, 0.5)',
-                border: '1px solid #1e293b',
+                background: 'var(--card-bg)',
+                border: '1px solid var(--border)',
                 borderRadius: '8px',
                 padding: '1.25rem',
                 textAlign: 'center',
               }}>
-                <div style={{ fontSize: '1.75rem', fontWeight: 700, color: '#c9a962' }}>{stat.value}</div>
-                <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '0.25rem' }}>{stat.label}</div>
+                <div style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--accent)' }}>{stat.value}</div>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>{stat.label}</div>
               </div>
             ))}
           </div>
@@ -43,19 +43,19 @@ export default function AboutLab() {
 
         {/* Right column — always 4 focus items */}
         <div style={{
-          background: 'rgba(30, 41, 59, 0.5)',
-          border: '1px solid #1e293b',
+          background: 'var(--card-bg)',
+          border: '1px solid var(--border)',
           borderRadius: '12px',
           padding: '1.75rem',
         }}>
-          <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: '#c9a962', marginBottom: '1.25rem' }}>
+          <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--accent)', marginBottom: '1.25rem' }}>
             Current Focus
           </h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {focus.map((item, i) => (
               <div key={i} style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
                 <span style={{ fontSize: '1.25rem', flexShrink: 0 }}>{item.emoji}</span>
-                <span style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: 1.6 }}>{item.text}</span>
+                <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.6 }}>{item.text}</span>
               </div>
             ))}
           </div>

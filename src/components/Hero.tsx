@@ -7,10 +7,10 @@ export default function Hero() {
       justifyContent: 'center',
       position: 'relative',
       overflow: 'hidden',
-      background: '#0c1222',
+      background: 'var(--bg)',
       backgroundImage: `
-        linear-gradient(rgba(201, 169, 98, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(201, 169, 98, 0.03) 1px, transparent 1px)
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px)
       `,
       backgroundSize: '60px 60px',
     }}>
@@ -22,7 +22,7 @@ export default function Hero() {
         width: '400px',
         height: '400px',
         borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(201, 169, 98, 0.08) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, var(--orb-gold) 0%, transparent 70%)',
         filter: 'blur(60px)',
         pointerEvents: 'none',
       }} />
@@ -33,7 +33,7 @@ export default function Hero() {
         width: '300px',
         height: '300px',
         borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(59, 130, 246, 0.06) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, var(--orb-blue) 0%, transparent 70%)',
         filter: 'blur(60px)',
         pointerEvents: 'none',
       }} />
@@ -41,7 +41,7 @@ export default function Hero() {
       <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '0 2rem' }}>
         <span style={{
           display: 'inline-block',
-          color: '#c9a962',
+          color: 'var(--accent)',
           fontSize: '0.8rem',
           fontWeight: 600,
           letterSpacing: '0.15em',
@@ -57,7 +57,7 @@ export default function Hero() {
         <h1 style={{
           fontSize: 'clamp(3rem, 8vw, 6rem)',
           fontWeight: 700,
-          color: '#fff',
+          color: 'var(--text-primary)',
           lineHeight: 1.1,
           marginBottom: '1.25rem',
         }}>
@@ -65,7 +65,7 @@ export default function Hero() {
         </h1>
 
         <p style={{
-          color: '#94a3b8',
+          color: 'var(--text-secondary)',
           fontSize: 'clamp(1rem, 2vw, 1.25rem)',
           maxWidth: '600px',
           margin: '0 auto 2.5rem',
@@ -76,8 +76,8 @@ export default function Hero() {
 
         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
           <a href="#agents" style={{
-            background: '#c9a962',
-            color: '#0c1222',
+            background: 'var(--accent)',
+            color: 'var(--bg)',
             padding: '0.875rem 1.75rem',
             borderRadius: '4px',
             textDecoration: 'none',
@@ -88,8 +88,8 @@ export default function Hero() {
             Meet The Team
           </a>
           <a href="https://suhailtaj.cloud" style={{
-            border: '1px solid #c9a962',
-            color: '#c9a962',
+            border: '1px solid var(--accent)',
+            color: 'var(--accent)',
             padding: '0.875rem 1.75rem',
             borderRadius: '4px',
             textDecoration: 'none',

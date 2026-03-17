@@ -17,8 +17,8 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
       key={project.name}
       {...cardProps}
       style={{
-        background: 'rgba(30, 41, 59, 0.4)',
-        border: '1px solid #1e293b',
+        background: 'var(--card-bg)',
+        border: '1px solid var(--border)',
         borderRadius: '12px',
         padding: '24px',
         transition: 'border-color 0.2s, box-shadow 0.2s',
@@ -30,11 +30,11 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
       className="project-card"
       onMouseEnter={e => {
         const icon = (e.currentTarget as HTMLElement).querySelector('.ext-icon') as HTMLElement
-        if (icon) icon.style.color = '#c9a962'
+        if (icon) icon.style.color = 'var(--accent)'
       }}
       onMouseLeave={e => {
         const icon = (e.currentTarget as HTMLElement).querySelector('.ext-icon') as HTMLElement
-        if (icon) icon.style.color = '#94a3b8'
+        if (icon) icon.style.color = 'var(--text-secondary)'
       }}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
@@ -52,24 +52,24 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
           {st.label}
         </span>
         {project.url && (
-          <ExternalLink size={16} className="ext-icon" style={{ color: '#94a3b8', flexShrink: 0, transition: 'color 0.2s' }} />
+          <ExternalLink size={16} className="ext-icon" style={{ color: 'var(--text-secondary)', flexShrink: 0, transition: 'color 0.2s' }} />
         )}
       </div>
 
-      <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: '#e5e7eb', marginBottom: '0.5rem' }}>
+      <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>
         {project.name}
       </h3>
 
-      <p style={{ color: '#94a3b8', fontSize: '0.875rem', lineHeight: 1.6, marginBottom: '1rem' }}>
+      <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', lineHeight: 1.6, marginBottom: '1rem' }}>
         {project.description}
       </p>
 
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
         {project.stack.map(tech => (
           <span key={tech} style={{
-            border: '1px solid #1e293b',
+            border: '1px solid var(--border)',
             background: 'transparent',
-            color: '#94a3b8',
+            color: 'var(--text-secondary)',
             fontSize: '0.75rem',
             padding: '0.25rem 0.625rem',
             borderRadius: '4px',
@@ -92,10 +92,10 @@ export default function Projects() {
       {/* Live Projects */}
       {liveProjects.length > 0 && (
         <div style={{ marginBottom: '4rem' }}>
-          <h2 style={{ fontSize: '1.75rem', fontWeight: 600, color: '#e5e7eb', marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <span style={{ color: '#c9a962', fontWeight: 400 }}>03.</span>
+          <h2 style={{ fontSize: '1.75rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <span style={{ color: 'var(--accent)', fontWeight: 400 }}>03.</span>
             Live Projects
-            <span style={{ height: '1px', background: '#1e293b', flex: 1, maxWidth: '300px' }} />
+            <span style={{ height: '1px', background: 'var(--border)', flex: 1, maxWidth: '300px' }} />
             <span style={{
               fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.08em',
               background: 'rgba(34,197,94,0.12)', color: '#22c55e',
@@ -114,10 +114,10 @@ export default function Projects() {
       {/* In Progress */}
       {inProgressProjects.length > 0 && (
         <div>
-          <h3 style={{ fontSize: '1.2rem', fontWeight: 600, color: '#e5e7eb', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <span style={{ color: '#c9a962', fontWeight: 400 }}>—</span>
+          <h3 style={{ fontSize: '1.2rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <span style={{ color: 'var(--accent)', fontWeight: 400 }}>—</span>
             In Progress
-            <span style={{ height: '1px', background: '#1e293b', flex: 1, maxWidth: '200px' }} />
+            <span style={{ height: '1px', background: 'var(--border)', flex: 1, maxWidth: '200px' }} />
             <span style={{
               fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.08em',
               background: 'rgba(245, 158, 11, 0.12)', color: '#f59e0b',
