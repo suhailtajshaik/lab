@@ -4,7 +4,7 @@ export default function AboutLab() {
   const stats = [
     { value: String(labStats.agents),                                    label: 'Active Agents' },
     { value: String(labStats.liveProjects),                              label: 'Live Projects' },
-    { value: String(labStats.activeProjects + labStats.modelTraining),   label: 'In Progress' },
+    { value: String(labStats.activeProjects),   label: 'In Progress' },
   ]
 
   // Always exactly 4 — enforced by update-lab.py
