@@ -29,6 +29,7 @@ export const agents: Agent[] = [
 export const projects: Project[] = [
   { name: 'Yoda — VL-JEPA Learning System', status: 'active' as const, stack: ['Python', 'PyTorch', 'Claude', 'BERT', 'ViT', 'Docker'], description: 'Self-evolving agent that learns Vision-Language JEPA from research papers and autonomously builds its own product embedding model. v0.5 — 161M parameters, trained on Amazon Berkeley Objects dataset for e-commerce product search and inventory counting.' },
   { name: 'Prompt Studio', status: 'active' as const, stack: ['React', 'Node.js', 'Docker', 'Nginx'], description: 'A personal prompt engineering workspace. Design, test, and iterate on prompts for LLMs with a clean interface.', url: 'https://lab.suhailtaj.cloud/prompt-studio/' },
+  { name: 'The Headlines Today', status: 'active' as const, stack: ['React', 'TypeScript', 'Vite', 'Claude AI', 'Docker', 'Nginx'], description: 'AI-curated daily newspaper. Maxwell fetches global RSS feeds, writes publication-ready summaries, generates PDF + audio briefing — published every morning at 5 AM EST.', url: 'https://news.suhailtaj.cloud' },
 ]
 
 export const statusColors: Record<string, string> = {
