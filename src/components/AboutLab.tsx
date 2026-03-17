@@ -2,10 +2,13 @@ import { labStats, focusItems } from '../data/lab'
 
 export default function AboutLab() {
   const stats = [
-    { value: String(labStats.agents),       label: 'Active Agents' },
-    { value: String(labStats.liveProjects), label: 'Live Projects' },
-    { value: String(labStats.modelTraining),label: 'Model Training' },
+    { value: String(labStats.agents),                                    label: 'Active Agents' },
+    { value: String(labStats.liveProjects),                              label: 'Live Projects' },
+    { value: String(labStats.activeProjects + labStats.modelTraining),   label: 'In Progress' },
   ]
+
+  // Always exactly 4 — enforced by update-lab.py
+  const focus = focusItems.slice(0, 4)
 
   return (
     <section style={{ padding: '6rem 2rem', maxWidth: '1200px', margin: '0 auto' }}>
@@ -38,7 +41,7 @@ export default function AboutLab() {
           </div>
         </div>
 
-        {/* Right column */}
+        {/* Right column — always 4 focus items */}
         <div style={{
           background: 'rgba(30, 41, 59, 0.5)',
           border: '1px solid #1e293b',
@@ -49,9 +52,9 @@ export default function AboutLab() {
             Current Focus
           </h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            {focusItems.map(item => (
-              <div key={item.emoji + item.text} style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
-                <span style={{ fontSize: '1.25rem' }}>{item.emoji}</span>
+            {focus.map((item, i) => (
+              <div key={i} style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+                <span style={{ fontSize: '1.25rem', flexShrink: 0 }}>{item.emoji}</span>
                 <span style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: 1.6 }}>{item.text}</span>
               </div>
             ))}
