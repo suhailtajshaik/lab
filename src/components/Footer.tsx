@@ -7,7 +7,7 @@ export default function Footer() {
     fetch('https://analytics.suhailtaj.cloud/track', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ site: 'lab' }),
+      body: JSON.stringify({ site: 'lab', referrer: document.referrer || null }),
     }).catch(() => {})
 
     fetch('https://analytics.suhailtaj.cloud/count/lab')
