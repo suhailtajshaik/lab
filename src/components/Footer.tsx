@@ -1,4 +1,21 @@
+import { useState, useEffect } from 'react'
+
 export default function Footer() {
+  const [visitors, setVisitors] = useState<number | null>(null)
+
+  useEffect(() => {
+    fetch('https://analytics.suhailtaj.cloud/track', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ site: 'lab' }),
+    }).catch(() => {})
+
+    fetch('https://analytics.suhailtaj.cloud/count/lab')
+      .then(r => r.json())
+      .then(d => setVisitors(d.count))
+      .catch(() => {})
+  }, [])
+
   return (
     <footer style={{
       padding: '3rem 2rem',
@@ -30,9 +47,14 @@ export default function Footer() {
         >LinkedIn</a>
       </div>
 
-      <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>
+      <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginBottom: '0.5rem' }}>
         © 2026 Suhail Taj Shaik
       </p>
+      {visitors !== null && (
+        <p style={{ color: 'var(--text-muted)', fontSize: '0.78rem', marginTop: '0.5rem' }}>
+          👁 {visitors.toLocaleString()} {visitors === 1 ? 'visitor' : 'visitors'}
+        </p>
+      )}
     </footer>
   )
 }
