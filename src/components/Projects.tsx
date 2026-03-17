@@ -28,6 +28,14 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
         position: 'relative',
       }}
       className="project-card"
+      onMouseEnter={e => {
+        const icon = (e.currentTarget as HTMLElement).querySelector('.ext-icon') as HTMLElement
+        if (icon) icon.style.color = '#c9a962'
+      }}
+      onMouseLeave={e => {
+        const icon = (e.currentTarget as HTMLElement).querySelector('.ext-icon') as HTMLElement
+        if (icon) icon.style.color = '#94a3b8'
+      }}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
         <span style={{
@@ -44,7 +52,7 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
           {st.label}
         </span>
         {project.url && (
-          <ExternalLink size={14} style={{ color: '#475569', flexShrink: 0 }} />
+          <ExternalLink size={16} className="ext-icon" style={{ color: '#94a3b8', flexShrink: 0, transition: 'color 0.2s' }} />
         )}
       </div>
 
