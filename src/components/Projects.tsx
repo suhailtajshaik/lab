@@ -118,6 +118,14 @@ export default function Projects() {
             <span style={{ color: '#c9a962', fontWeight: 400 }}>—</span>
             In Progress
             <span style={{ height: '1px', background: '#1e293b', flex: 1, maxWidth: '200px' }} />
+            <span style={{
+              fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.08em',
+              background: 'rgba(245, 158, 11, 0.12)', color: '#f59e0b',
+              border: '1px solid rgba(245, 158, 11, 0.3)',
+              padding: '0.3rem 0.75rem', borderRadius: '4px',
+            }}>
+              {inProgressProjects.length} IN PROGRESS
+            </span>
           </h3>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '1.5rem' }}>
             {inProgressProjects.map(p => <ProjectCard key={p.name} project={p} />)}

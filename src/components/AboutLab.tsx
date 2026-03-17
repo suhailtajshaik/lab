@@ -1,7 +1,7 @@
 export default function AboutLab() {
   const stats = [
     { value: '6', label: 'Active Agents' },
-    { value: '3', label: 'Live Projects' },
+    { value: '2', label: 'Live Projects' },
     { value: '1', label: 'Model Training' },
   ]
 
