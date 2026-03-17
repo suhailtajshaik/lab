@@ -1,13 +1,14 @@
 export default function AboutLab() {
   const stats = [
     { value: '6', label: 'Active Agents' },
-    { value: '1', label: 'Projects In Progress' },
+    { value: '3', label: 'Live Projects' },
     { value: '1', label: 'Model Training' },
   ]
 
   const focusItems = [
-    { emoji: '🧙', text: 'Yoda — Self-evolving VL-JEPA agent, currently v0.4 with 161M parameters' },
-    
+    { emoji: '📰', text: 'The Headlines Today — AI newspaper publishing daily at 5AM EST via Maxwell' },
+    { emoji: '🧪', text: 'Prompt Studio — Live prompt engineering workspace at lab.suhailtaj.cloud' },
+    { emoji: '🧙', text: 'Yoda — Self-evolving VL-JEPA agent, v0.5 with 161M parameters' },
     { emoji: '🧠', text: 'VL-JEPA — Training a vision-language model from research papers' },
   ]
 
