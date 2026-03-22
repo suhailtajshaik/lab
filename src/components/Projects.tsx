@@ -7,29 +7,15 @@ const statusConfig = {
   planned: { label: 'PLANNED',     bg: 'rgba(59, 130, 246, 0.12)', color: '#3b82f6', border: 'rgba(59, 130, 246, 0.3)' },
 }
 
-function ProjectCard({ project, onNavigate }: { project: typeof projects[0], onNavigate?: (page: string) => void }) {
+function ProjectCard({ project }: { project: typeof projects[0] }) {
   const st = statusConfig[project.status]
-  
-  // Check if this is an internal route
-  const isInternal = project.url?.startsWith('/')
-  const CardTag = project.url && !isInternal ? 'a' : 'button'
-  
-  const cardProps = project.url && !isInternal 
-    ? { href: project.url, target: '_blank' as const, rel: 'noopener noreferrer' }
-    : { type: 'button' as const }
-
-  const handleClick = (e: React.MouseEvent) => {
-    if (isInternal && project.url && onNavigate) {
-      e.preventDefault()
-      onNavigate(project.url)
-    }
-  }
+  const CardTag = project.url ? 'a' : 'div'
+  const cardProps = project.url ? { href: project.url, target: '_blank' as const, rel: 'noopener noreferrer' } : {}
 
   return (
     <CardTag
       key={project.name}
       {...cardProps}
-      onClick={handleClick}
       style={{
         background: 'var(--card-bg)',
         border: '1px solid var(--border)',
@@ -40,16 +26,15 @@ function ProjectCard({ project, onNavigate }: { project: typeof projects[0], onN
         display: 'block',
         cursor: project.url ? 'pointer' : 'default',
         position: 'relative',
-        color: 'inherit',
       }}
       className="project-card"
       onMouseEnter={e => {
         const icon = (e.currentTarget as HTMLElement).querySelector('.ext-icon') as HTMLElement
-        if (icon && !isInternal) icon.style.color = 'var(--accent)'
+        if (icon) icon.style.color = 'var(--accent)'
       }}
       onMouseLeave={e => {
         const icon = (e.currentTarget as HTMLElement).querySelector('.ext-icon') as HTMLElement
-        if (icon && !isInternal) icon.style.color = 'var(--text-secondary)'
+        if (icon) icon.style.color = 'var(--text-secondary)'
       }}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
@@ -66,7 +51,7 @@ function ProjectCard({ project, onNavigate }: { project: typeof projects[0], onN
         }}>
           {st.label}
         </span>
-        {project.url && !isInternal && (
+        {project.url && (
           <ExternalLink size={16} className="ext-icon" style={{ color: 'var(--text-secondary)', flexShrink: 0, transition: 'color 0.2s' }} />
         )}
       </div>
@@ -97,7 +82,7 @@ function ProjectCard({ project, onNavigate }: { project: typeof projects[0], onN
   )
 }
 
-export default function Projects({ onNavigate }: { onNavigate?: (page: string) => void }) {
+export default function Projects() {
   const liveProjects = projects.filter(p => p.status === 'live')
   const inProgressProjects = projects.filter(p => p.status === 'active')
 
@@ -121,7 +106,7 @@ export default function Projects({ onNavigate }: { onNavigate?: (page: string) =
             </span>
           </h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '1.5rem' }}>
-            {liveProjects.map(p => <ProjectCard key={p.name} project={p} onNavigate={onNavigate} />)}
+            {liveProjects.map(p => <ProjectCard key={p.name} project={p} />)}
           </div>
         </div>
       )}
@@ -143,7 +128,7 @@ export default function Projects({ onNavigate }: { onNavigate?: (page: string) =
             </span>
           </h3>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '1.5rem' }}>
-            {inProgressProjects.map(p => <ProjectCard key={p.name} project={p} onNavigate={onNavigate} />)}
+            {inProgressProjects.map(p => <ProjectCard key={p.name} project={p} />)}
           </div>
         </div>
       )}
