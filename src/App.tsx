@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useTheme } from './hooks/useTheme'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
@@ -13,6 +13,40 @@ type Page = 'home' | 'mission-crew'
 function App() {
   const { theme, toggleTheme } = useTheme()
   const [currentPage, setCurrentPage] = useState<Page>('home')
+
+  // Initialize page from URL
+  useEffect(() => {
+    const path = window.location.pathname
+    if (path.includes('/mission-crew')) {
+      setCurrentPage('mission-crew')
+    } else {
+      setCurrentPage('home')
+    }
+  }, [])
+
+  // Update URL when page changes
+  useEffect(() => {
+    if (currentPage === 'mission-crew') {
+      window.history.pushState(null, '', '/mission-crew')
+    } else {
+      window.history.pushState(null, '', '/')
+    }
+  }, [currentPage])
+
+  // Handle browser back/forward
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = window.location.pathname
+      if (path.includes('/mission-crew')) {
+        setCurrentPage('mission-crew')
+      } else {
+        setCurrentPage('home')
+      }
+    }
+
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
 
   if (currentPage === 'mission-crew') {
     return (
