@@ -12,31 +12,57 @@ type Page = 'home' | 'mission-crew'
 
 function App() {
   const { theme, toggleTheme } = useTheme()
-  const [currentPage, setCurrentPage] = useState<Page>(() => {
-    // Initialize from URL on first render
+  const [currentPage, setCurrentPage] = useState<Page>('home')
+  const [isInitialized, setIsInitialized] = useState(false)
+
+  // Initialize from URL on mount
+  useEffect(() => {
+    console.log('Initializing app, pathname:', window.location.pathname)
     const path = window.location.pathname
-    return path.includes('mission-crew') ? 'mission-crew' : 'home'
-  })
+    if (path.includes('mission-crew')) {
+      console.log('Setting to mission-crew')
+      setCurrentPage('mission-crew')
+    } else {
+      console.log('Setting to home')
+      setCurrentPage('home')
+    }
+    setIsInitialized(true)
+  }, [])
 
   // Handle browser back/forward
   useEffect(() => {
+    if (!isInitialized) return
+
     const handlePopState = () => {
+      console.log('popstate event, pathname:', window.location.pathname)
       const path = window.location.pathname
-      setCurrentPage(path.includes('mission-crew') ? 'mission-crew' : 'home')
+      if (path.includes('mission-crew')) {
+        setCurrentPage('mission-crew')
+      } else {
+        setCurrentPage('home')
+      }
     }
 
     window.addEventListener('popstate', handlePopState)
     return () => window.removeEventListener('popstate', handlePopState)
-  }, [])
+  }, [isInitialized])
 
   // Update URL when page changes
   useEffect(() => {
+    if (!isInitialized) return
+
     if (currentPage === 'mission-crew') {
+      console.log('Pushing to /mission-crew')
       window.history.pushState(null, '', '/mission-crew')
     } else {
+      console.log('Pushing to /')
       window.history.pushState(null, '', '/')
     }
-  }, [currentPage])
+  }, [currentPage, isInitialized])
+
+  if (!isInitialized) {
+    return <div>Loading...</div>
+  }
 
   if (currentPage === 'mission-crew') {
     return <MissionCrewPage onBack={() => setCurrentPage('home')} />
