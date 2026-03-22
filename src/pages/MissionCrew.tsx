@@ -1,16 +1,14 @@
 import { useState, useEffect } from 'react'
 
 interface AppSettings {
-  ollamaBaseUrl: string
-  ollamaModel: string
+  apiKey: string
   apiBaseUrl: string
 }
 
 export default function MissionCrewPage() {
   const [showSettings, setShowSettings] = useState(false)
   const [settings, setSettings] = useState<AppSettings>({
-    ollamaBaseUrl: 'http://localhost:11434',
-    ollamaModel: 'mistral',
+    apiKey: '',
     apiBaseUrl: 'http://localhost:8000',
   })
   const [topic, setTopic] = useState('')
@@ -51,6 +49,11 @@ export default function MissionCrewPage() {
       return
     }
 
+    if (!settings.apiKey) {
+      setError('Please configure API key in settings')
+      return
+    }
+
     setLoading(true)
     setError('')
     try {
@@ -61,7 +64,10 @@ export default function MissionCrewPage() {
 
       const response = await fetch(`${settings.apiBaseUrl}${endpoint}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${settings.apiKey}`,
+        },
         body: JSON.stringify({ topic, proposal }),
       })
 
@@ -288,11 +294,12 @@ export default function MissionCrewPage() {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>Ollama Base URL</label>
+                <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>API Key</label>
                 <input
-                  type="text"
-                  value={settings.ollamaBaseUrl}
-                  onChange={(e) => setSettings({ ...settings, ollamaBaseUrl: e.target.value })}
+                  type="password"
+                  value={settings.apiKey}
+                  onChange={(e) => setSettings({ ...settings, apiKey: e.target.value })}
+                  placeholder="Enter your API key"
                   style={{
                     width: '100%',
                     padding: '0.5rem 1rem',
@@ -303,27 +310,7 @@ export default function MissionCrewPage() {
                     fontFamily: 'inherit',
                   }}
                 />
-              </div>
-
-              <div>
-                <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>LLM Model</label>
-                <select
-                  value={settings.ollamaModel}
-                  onChange={(e) => setSettings({ ...settings, ollamaModel: e.target.value })}
-                  style={{
-                    width: '100%',
-                    padding: '0.5rem 1rem',
-                    background: '#334155',
-                    border: '1px solid #475569',
-                    borderRadius: '0.5rem',
-                    color: 'white',
-                    fontFamily: 'inherit',
-                  }}
-                >
-                  <option value="mistral">Mistral (7B)</option>
-                  <option value="llama2">Llama 2 (7B)</option>
-                  <option value="neural-chat">Neural Chat</option>
-                </select>
+                <p style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '0.25rem' }}>For your LLM provider (OpenAI, Anthropic, etc.)</p>
               </div>
 
               <div>
@@ -332,6 +319,7 @@ export default function MissionCrewPage() {
                   type="text"
                   value={settings.apiBaseUrl}
                   onChange={(e) => setSettings({ ...settings, apiBaseUrl: e.target.value })}
+                  placeholder="http://localhost:8000"
                   style={{
                     width: '100%',
                     padding: '0.5rem 1rem',
@@ -342,6 +330,7 @@ export default function MissionCrewPage() {
                     fontFamily: 'inherit',
                   }}
                 />
+                <p style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '0.25rem' }}>MissionCrew backend endpoint</p>
               </div>
             </div>
 
