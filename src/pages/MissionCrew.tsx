@@ -5,7 +5,11 @@ interface AppSettings {
   apiBaseUrl: string
 }
 
-export default function MissionCrewPage() {
+interface MissionCrewPageProps {
+  onBack?: () => void
+}
+
+export default function MissionCrewPage({ onBack }: MissionCrewPageProps) {
   const [showSettings, setShowSettings] = useState(false)
   const [settings, setSettings] = useState<AppSettings>({
     apiKey: '',
@@ -90,10 +94,44 @@ export default function MissionCrewPage() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom right, #0f172a, #1e293b)', color: 'white', padding: '3rem 1.5rem' }}>
+    <div style={{ 
+      minHeight: '100vh', 
+      background: 'linear-gradient(to bottom right, #0f172a, #1e293b)', 
+      color: 'white', 
+      padding: '3rem 1.5rem',
+      margin: 0,
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      width: '100%',
+      overflowY: 'auto',
+    }}>
+      {onBack && (
+        <button
+          onClick={onBack}
+          style={{
+            position: 'fixed',
+            top: '1rem',
+            left: '1rem',
+            padding: '0.5rem 1rem',
+            background: '#2563eb',
+            color: 'white',
+            border: 'none',
+            borderRadius: '0.5rem',
+            cursor: 'pointer',
+            zIndex: 100,
+            fontWeight: '500',
+          }}
+        >
+          ← Back to Lab
+        </button>
+      )}
+
       <div style={{ maxWidth: '80rem', margin: '0 auto' }}>
         {/* Header */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '3rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '3rem', marginTop: onBack ? '2rem' : '0' }}>
           <div>
             <h1 style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '0.75rem' }}>MissionCrew</h1>
             <p style={{ fontSize: '1.125rem', color: '#cbd5e1' }}>

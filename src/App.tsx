@@ -12,16 +12,21 @@ type Page = 'home' | 'mission-crew'
 
 function App() {
   const { theme, toggleTheme } = useTheme()
-  const [currentPage, setCurrentPage] = useState<Page>('home')
-
-  // Initialize page from URL
-  useEffect(() => {
+  const [currentPage, setCurrentPage] = useState<Page>(() => {
+    // Initialize from URL on first render
     const path = window.location.pathname
-    if (path.includes('/mission-crew')) {
-      setCurrentPage('mission-crew')
-    } else {
-      setCurrentPage('home')
+    return path.includes('mission-crew') ? 'mission-crew' : 'home'
+  })
+
+  // Handle browser back/forward
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = window.location.pathname
+      setCurrentPage(path.includes('mission-crew') ? 'mission-crew' : 'home')
     }
+
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
   }, [])
 
   // Update URL when page changes
@@ -33,44 +38,8 @@ function App() {
     }
   }, [currentPage])
 
-  // Handle browser back/forward
-  useEffect(() => {
-    const handlePopState = () => {
-      const path = window.location.pathname
-      if (path.includes('/mission-crew')) {
-        setCurrentPage('mission-crew')
-      } else {
-        setCurrentPage('home')
-      }
-    }
-
-    window.addEventListener('popstate', handlePopState)
-    return () => window.removeEventListener('popstate', handlePopState)
-  }, [])
-
   if (currentPage === 'mission-crew') {
-    return (
-      <div style={{ background: 'var(--bg)', minHeight: '100vh', fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>
-        <button
-          onClick={() => setCurrentPage('home')}
-          style={{
-            position: 'fixed',
-            top: '1rem',
-            left: '1rem',
-            padding: '0.5rem 1rem',
-            background: 'var(--accent)',
-            color: 'white',
-            border: 'none',
-            borderRadius: '0.5rem',
-            cursor: 'pointer',
-            zIndex: 100,
-          }}
-        >
-          ← Back to Lab
-        </button>
-        <MissionCrewPage />
-      </div>
-    )
+    return <MissionCrewPage onBack={() => setCurrentPage('home')} />
   }
 
   return (
