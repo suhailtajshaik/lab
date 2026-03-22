@@ -10,64 +10,54 @@ import MissionCrewPage from './pages/MissionCrew'
 
 type Page = 'home' | 'mission-crew'
 
+function getPageFromPath(): Page {
+  const pathname = window.location.pathname
+  console.log('Current pathname:', pathname)
+  console.log('Includes mission-crew:', pathname.includes('mission-crew'))
+  return pathname.includes('mission-crew') ? 'mission-crew' : 'home'
+}
+
 function App() {
   const { theme, toggleTheme } = useTheme()
-  const [currentPage, setCurrentPage] = useState<Page>('home')
-  const [isInitialized, setIsInitialized] = useState(false)
+  const [currentPage, setCurrentPage] = useState<Page>(getPageFromPath())
 
-  // Initialize from URL on mount
   useEffect(() => {
-    console.log('Initializing app, pathname:', window.location.pathname)
-    const path = window.location.pathname
-    if (path.includes('mission-crew')) {
-      console.log('Setting to mission-crew')
-      setCurrentPage('mission-crew')
-    } else {
-      console.log('Setting to home')
-      setCurrentPage('home')
-    }
-    setIsInitialized(true)
+    // Check on mount
+    const initialPage = getPageFromPath()
+    console.log('App mounted, initialPage:', initialPage)
+    setCurrentPage(initialPage)
   }, [])
 
-  // Handle browser back/forward
   useEffect(() => {
-    if (!isInitialized) return
-
+    // Listen for browser back/forward
     const handlePopState = () => {
-      console.log('popstate event, pathname:', window.location.pathname)
-      const path = window.location.pathname
-      if (path.includes('mission-crew')) {
-        setCurrentPage('mission-crew')
-      } else {
-        setCurrentPage('home')
-      }
+      const page = getPageFromPath()
+      console.log('popstate - new page:', page)
+      setCurrentPage(page)
     }
 
     window.addEventListener('popstate', handlePopState)
     return () => window.removeEventListener('popstate', handlePopState)
-  }, [isInitialized])
+  }, [])
 
   // Update URL when page changes
   useEffect(() => {
-    if (!isInitialized) return
-
-    if (currentPage === 'mission-crew') {
-      console.log('Pushing to /mission-crew')
-      window.history.pushState(null, '', '/mission-crew')
-    } else {
-      console.log('Pushing to /')
-      window.history.pushState(null, '', '/')
+    const newPath = currentPage === 'mission-crew' ? '/mission-crew' : '/'
+    const currentPath = window.location.pathname
+    if (currentPath !== newPath) {
+      console.log('Updating pathname from', currentPath, 'to', newPath)
+      window.history.pushState(null, '', newPath)
     }
-  }, [currentPage, isInitialized])
+  }, [currentPage])
 
-  if (!isInitialized) {
-    return <div>Loading...</div>
-  }
+  console.log('Rendering page:', currentPage)
 
   if (currentPage === 'mission-crew') {
+    console.log('Showing MissionCrew page')
     return <MissionCrewPage onBack={() => setCurrentPage('home')} />
   }
 
+  console.log('Showing Home page')
   return (
     <div style={{ background: 'var(--bg)', minHeight: '100vh', fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>
       <Nav theme={theme} toggleTheme={toggleTheme} />
